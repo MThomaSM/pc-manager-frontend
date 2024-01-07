@@ -29,7 +29,7 @@ const Pagination: React.FC<PaginationProps> = ({ total, itemsPerPage, currentPag
         }
 
         setPages(pagesArray);
-    }, [total, itemsPerPage, currentPage]);
+    }, [total, itemsPerPage, currentPage, totalPages]);
 
     return (
         <div className="flex justify-center items-center gap-x-1.5">
