@@ -17,7 +17,7 @@ const Details = () => {
                 <p className="text-gray-500">With our website, you can easily set up and cofingure your ESP32 to remotely turn on your PC, say goodbye to manually pressing the power button!</p>
             </div>
             <div className="flex-1 flex justify-end items-center pt-8 md:pt-0">
-                <Image src={details} alt="details" width={500} height={500} className="rounded-full"/>
+                <Image src={details} alt="details" width={500} height={500} className="rounded-full" loading={"lazy"}/>
             </div>
         </div>
       </div>
