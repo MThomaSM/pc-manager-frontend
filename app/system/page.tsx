@@ -1,22 +1,18 @@
 "use client";
-import Hero from "@/components/Sections/Hero";
-import {BiSolidDownArrow, BiEdit, BiTrash, BiCalendarCheck, BiSolidRightArrow} from "react-icons/bi";
-import Card from "@/components/Card";
+import {BiEdit, BiTrash, BiCalendarCheck, BiSolidRightArrow} from "react-icons/bi";
 import Link from "next/link";
 import SystemMenu from "@/components/SystemMenu";
-import {useDeleteDevice, useGetDevices} from "@/hook/device";
-import {useDeleteComputer, useGetComputers} from "@/hook/computer";
+import {useGetDevices} from "@/hook/device";
+import {useGetComputers} from "@/hook/computer";
 import {useRouter} from "next/navigation";
 import ErrorAndLoadingLess from "@/components/ErrorAndLoadingLess";
-import {Device} from "@/interface/device";
 import {toast} from "react-toastify";
 import {calculateDifferenceInSeconds, toastErrors} from "@/utils";
 import {Computer} from "@/interface/computer";
 import {useWakeComputer} from "@/hook/startlist";
 import {ImSpinner2} from "react-icons/im";
 import React from "react";
-import {VscRemote, VscRemoteExplorer} from "react-icons/vsc";
-import {CgRemote} from "react-icons/cg";
+import {VscRemote} from "react-icons/vsc";
 const Page = () => {
 
     const router = useRouter();

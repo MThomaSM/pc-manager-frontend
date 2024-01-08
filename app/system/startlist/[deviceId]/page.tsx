@@ -1,12 +1,11 @@
 "use client";
 
 import SystemMenu from "@/components/SystemMenu";
-import {BiCalendarCheck, BiEdit, BiSolidRightArrow, BiTrash} from "react-icons/bi";
-import Card from "@/components/Card";
+import {BiEdit, BiSolidRightArrow, BiTrash} from "react-icons/bi";
 import {useGetDevice} from "@/hook/device";
 import ErrorAndLoadingLess from "@/components/ErrorAndLoadingLess";
 import React, {useEffect, useState} from "react";
-import {useDeleteStartlist, useGetStartlist, useWakeComputer, useWakeComputerBulk} from "@/hook/startlist";
+import {useDeleteStartlist, useGetStartlist, useWakeComputerBulk} from "@/hook/startlist";
 import {useGetComputersByDeviceId} from "@/hook/computer";
 import {Computer, ComputerWakeBulkItem} from "@/interface/computer";
 import {toast} from "react-toastify";

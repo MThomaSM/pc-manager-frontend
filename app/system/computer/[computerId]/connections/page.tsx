@@ -6,8 +6,6 @@ import ErrorAndLoadingLess from "@/components/ErrorAndLoadingLess";
 import {useRouter} from "next/navigation";
 import ConnectionCard from "@/components/Connection/ConnectionCard";
 
-
-
 const Connection = ({params}: {params: { computerId: string }}) => {
 
     const router = useRouter();

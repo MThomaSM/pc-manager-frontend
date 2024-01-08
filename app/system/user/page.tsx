@@ -2,12 +2,11 @@
 import React from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Link from "next/link";
-import {SignupFormValues, UpdateUserFormValues, User} from "@/interface/auth";
+import {UpdateUserFormValues} from "@/interface/auth";
 import {toastErrors} from "@/utils";
 import {toast} from "react-toastify";
 import {useDispatch, useSelector} from "react-redux";
-import {useCreateUser, useUpdateUser} from "@/hook/auth";
+import {useUpdateUser} from "@/hook/auth";
 import {useRouter} from "next/navigation";
 import {authActions} from "@/store/auth-slice";
 import {ImSpinner2} from "react-icons/im";

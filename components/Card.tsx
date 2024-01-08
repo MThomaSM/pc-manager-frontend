@@ -1,5 +1,4 @@
 import React, {ReactNode} from "react";
-import footer from "@/components/Footer/Footer";
 
 interface CardProps {
     title: string;

@@ -3,7 +3,7 @@ import React from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Link from "next/link";
-import {SignupFormValues, User} from "@/interface/auth";
+import {SignupFormValues} from "@/interface/auth";
 import {toastErrors} from "@/utils";
 import {toast} from "react-toastify";
 import {useDispatch} from "react-redux";

@@ -1,7 +1,5 @@
 "use client";
-import {useDeleteDevice, useGetDevice} from "@/hook/device";
 import ErrorAndLoadingLess from "@/components/ErrorAndLoadingLess";
-import {Device} from "@/interface/device";
 import {toast} from "react-toastify";
 import {toastErrors} from "@/utils";
 import {useRouter} from "next/navigation";

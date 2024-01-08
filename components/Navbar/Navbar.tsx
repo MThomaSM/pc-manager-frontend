@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store";
 import {authActions} from "@/store/auth-slice";
 import {toast} from "react-toastify";
-import {useParams, usePathname, useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {User} from "@/interface/auth";
 import {uiActions} from "@/store/ui-slice";
 

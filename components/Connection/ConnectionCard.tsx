@@ -1,4 +1,4 @@
-import {Connection, ConnectionType} from "@/interface/connection";
+import {Connection} from "@/interface/connection";
 import React from "react";
 import Card from "@/components/Card";
 import {useRouter} from "next/navigation";

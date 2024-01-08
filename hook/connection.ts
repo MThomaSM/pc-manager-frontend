@@ -2,7 +2,7 @@ import {useMutation, UseMutationOptions, useQuery, UseQueryOptions} from "@tanst
 import {AxiosError} from "axios";
 import {ErrorResponse, Mode, SuccessResponse} from "@/interface/response";
 import axiosClient from "@/app/api";
-import {Connection, ConnectionFormValues, ConnectionType} from "@/interface/connection";
+import {Connection, ConnectionFormValues} from "@/interface/connection";
 import fileDownload from "js-file-download";
 
 const QUERY_KEY = 'connections';

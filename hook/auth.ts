@@ -7,7 +7,7 @@ import {
     PasswordResetFormValues, RequestPasswordResetFormValues
 } from "@/interface/auth";
 import {useMutation, UseMutationOptions, useQuery} from "@tanstack/react-query";
-import {AxiosError, AxiosResponse} from "axios";
+import {AxiosError} from "axios";
 import {ErrorResponse, SuccessResponse} from "@/interface/response";
 import axiosClient from "@/app/api";
 
