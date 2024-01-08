@@ -9,8 +9,9 @@ const useRedirectByAuthState = (href: string, forLoggedIn: boolean) => {
     const userState = useSelector((state: RootState) => state.auth);
 
     useEffect(() => {
-        if ((!forLoggedIn && userState.user) || (forLoggedIn && !userState.user)) router.push(href);
-        if(forLoggedIn) toast.info('You must be logged in to view this page.', { toastId: 'auth-toast' })
+        if ((!forLoggedIn && userState.user) || (forLoggedIn && !userState.user)){
+            router.push(href);
+        }
     }, [forLoggedIn, router, userState.user, href]);
 }
 
