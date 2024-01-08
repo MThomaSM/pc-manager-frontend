@@ -39,6 +39,10 @@ const UpdateUser = () => {
         } as UpdateUserFormValues,
         validationSchema: validationSchema,
         onSubmit: (values: UpdateUserFormValues) => {
+            if (values.password?.length === 0) {
+                delete values.password;
+                delete values.passwordConfirm;
+            }
             mutate(values, {
                 onSuccess: (data) => {
                     const { jwt, ...user } = data;
