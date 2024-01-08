@@ -20,6 +20,7 @@ const LostPasswordPage = () => {
     const formik = useFormik({
         initialValues: {
             email: '',
+            feUrl: window.location.origin
         } as RequestPasswordResetFormValues,
         validationSchema: validationSchema,
         onSubmit: (values: RequestPasswordResetFormValues) => {

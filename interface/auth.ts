@@ -46,6 +46,7 @@ export interface PasswordResetFormValues {
 
 export interface RequestPasswordResetFormValues {
     email: string;
+    feUrl: string;
 }
 
 export interface LoginFormValues {
