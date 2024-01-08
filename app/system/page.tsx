@@ -13,9 +13,12 @@ import {useWakeComputer} from "@/hook/startlist";
 import {ImSpinner2} from "react-icons/im";
 import React from "react";
 import {VscRemote} from "react-icons/vsc";
+import useRedirectByAuthState from "@/hook/utils";
 const Page = () => {
 
     const router = useRouter();
+    useRedirectByAuthState("/system/login", true);
+
     const { data: devices, isLoading: devicesIsLoading, error:devicesError, refetch: devicesRefetch } = useGetDevices();
     const { data: computers, isLoading: computersIsLoading, error: computersError, refetch: computersRefetch } = useGetComputers();
 

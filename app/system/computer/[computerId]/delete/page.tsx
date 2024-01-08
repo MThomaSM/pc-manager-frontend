@@ -5,9 +5,12 @@ import {toastErrors} from "@/utils";
 import {useRouter} from "next/navigation";
 import {useDeleteComputer, useGetComputer} from "@/hook/computer";
 import {Computer} from "@/interface/computer";
+import useRedirectByAuthState from "@/hook/utils";
 
 const ComputerDeletePage = ({params}: {params: { computerId: string }}) => {
     const router = useRouter();
+    useRedirectByAuthState("/system/login", true);
+
     const { data: computer, error: computerError, isLoading: computerIsLoading } = useGetComputer(params.computerId);
     const { mutate:deleteComputer } = useDeleteComputer();
 

@@ -5,10 +5,13 @@ import {useGetConnectionsByComputerId} from "@/hook/connection";
 import ErrorAndLoadingLess from "@/components/ErrorAndLoadingLess";
 import {useRouter} from "next/navigation";
 import ConnectionCard from "@/components/Connection/ConnectionCard";
+import useRedirectByAuthState from "@/hook/utils";
 
 const Connection = ({params}: {params: { computerId: string }}) => {
 
     const router = useRouter();
+    useRedirectByAuthState("/system/login", true);
+
     const { data: connections, isLoading: connectionsIsLoading, error:connectiosError, isPending: connectionsIsPending } = useGetConnectionsByComputerId(params.computerId);
 
     return (

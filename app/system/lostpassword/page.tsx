@@ -8,10 +8,12 @@ import {RequestPasswordResetFormValues} from "@/interface/auth";
 import {toast} from "react-toastify";
 import {toastErrors} from "@/utils";
 import {ImSpinner2} from "react-icons/im";
+import useRedirectByAuthState from "@/hook/utils";
 
 const LostPasswordPage = () => {
 
     const { mutate, isPending } = useRequestPasswordReset();
+    useRedirectByAuthState("/system", false);
 
     const validationSchema = Yup.object({
         email: Yup.string().email('Invalid email address').required('Required'),

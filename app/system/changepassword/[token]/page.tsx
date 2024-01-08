@@ -8,9 +8,11 @@ import {toast} from "react-toastify";
 import {toastErrors} from "@/utils";
 import {ImSpinner2} from "react-icons/im";
 import React, {useEffect} from "react";
+import useRedirectByAuthState from "@/hook/utils";
 
 const ChangePasswordPage = ({params}: {params: { token: string }}) => {
     const router = useRouter();
+    useRedirectByAuthState("/system", false);
 
     const { data: user, isFetched: isUserFetched } = useGetUserByPasswordResetToken(params.token);
     const { mutate, isPending } = useUpdateUserPassword();

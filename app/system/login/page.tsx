@@ -11,12 +11,14 @@ import {toastErrors} from "@/utils";
 import * as Yup from 'yup';
 import {useRouter} from "next/navigation";
 import { ImSpinner2 } from "react-icons/im";
+import useRedirectByAuthState from "@/hook/utils";
 
 const LoginPage = () => {
 
     const dispatch = useDispatch();
     const router = useRouter();
     const { mutate, isError, isSuccess, isPending, data, error } = useLoginUser();
+    useRedirectByAuthState("/system", false);
 
     const validationSchema = Yup.object({
         email: Yup.string().email('Invalid email').required('Required'),

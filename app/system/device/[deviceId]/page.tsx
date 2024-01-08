@@ -13,12 +13,14 @@ import {toastErrors} from "@/utils";
 import {v4 as uuidv4} from 'uuid';
 import ErrorAndLoadingLess from "@/components/ErrorAndLoadingLess";
 import Link from "next/link";
+import useRedirectByAuthState from "@/hook/utils";
 
 const DeviceEditCreatePage = ({params}: {params: { deviceId: string }}) => {
 
     const mode = params.deviceId === "new" ? "CREATE" : "UPDATE";
 
     const router = useRouter();
+    useRedirectByAuthState("/system/login", true);
 
     const { data: device, error: deviceError, isLoading: deviceIsLoading } = useGetDevice(params.deviceId, {enabled: mode === "UPDATE"});
     const { mutate, isPending } = useCreateOrUpdateDevice();

@@ -13,12 +13,14 @@ import {useCreateOrUpdateComputer, useGetComputer} from "@/hook/computer";
 import {toast} from "react-toastify";
 import {toastErrors} from "@/utils";
 import Link from "next/link";
+import useRedirectByAuthState from "@/hook/utils";
 
 const ComputerEditCreatePage = ({params}: {params: { computerId: string }}) => {
 
     const mode = params.computerId === "new" ? "CREATE" : "UPDATE";
 
     const router = useRouter();
+    useRedirectByAuthState("/system/login", true);
 
     const { data: devices, isLoading: devicesIsLoading, error:devicesError } = useGetDevices();
     const { data: computer, error: computerError, isLoading: computerIsLoading } = useGetComputer(params.computerId, {enabled: mode === "UPDATE"});

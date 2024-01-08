@@ -11,11 +11,13 @@ import SystemMenu from "@/components/SystemMenu";
 import ErrorAndLoadingLess from "@/components/ErrorAndLoadingLess";
 import Card from "@/components/Card";
 import {ImSpinner2} from "react-icons/im";
+import useRedirectByAuthState from "@/hook/utils";
 
 
 const CreateEditConnectionPage = ({params}: {params: { connectionId: string, computerId: string }}) => {
     const mode = params.connectionId === "new" ? "CREATE" : "UPDATE";
     const router = useRouter();
+    useRedirectByAuthState("/system/login", true);
 
     const { data: connection, error: connectionError, isLoading: connectionIsLoading } = useGetConnection(params.connectionId, {enabled: mode === "UPDATE"});
     const { mutate, isPending } = useCreateOrUpdateConnection(params.computerId, params.connectionId);

@@ -1,21 +1,24 @@
 "use client";
-import React from "react";
+import React, {useEffect} from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Link from "next/link";
 import {SignupFormValues} from "@/interface/auth";
 import {toastErrors} from "@/utils";
 import {toast} from "react-toastify";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useCreateUser} from "@/hook/auth";
 import {useRouter} from "next/navigation";
 import {authActions} from "@/store/auth-slice";
 import {ImSpinner2} from "react-icons/im";
+import useRedirectByAuthState from "@/hook/utils";
 
 const Register = () => {
 
     const dispatch = useDispatch();
     const router = useRouter();
+    useRedirectByAuthState("/system", false);
+
     const { mutate, isError, isSuccess, isPending, data, error } = useCreateUser();
 
     const validationSchema = Yup.object({

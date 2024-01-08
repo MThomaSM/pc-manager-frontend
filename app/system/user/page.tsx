@@ -11,12 +11,14 @@ import {useRouter} from "next/navigation";
 import {authActions} from "@/store/auth-slice";
 import {ImSpinner2} from "react-icons/im";
 import {RootState} from "@/store";
+import useRedirectByAuthState from "@/hook/utils";
 
 const UpdateUser = () => {
     const userState = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
     const router = useRouter();
     const { mutate, isPending } = useUpdateUser();
+    useRedirectByAuthState("/system/login", true);
 
     const validationSchema = Yup.object({
         firstName: Yup.string().min(3, 'First name is too short - should be 3 chars minimum.'),

@@ -7,13 +7,14 @@ import {Connection} from "@/interface/connection";
 import ErrorAndLoadingLess from "@/components/ErrorAndLoadingLess";
 import {ImSpinner2} from "react-icons/im";
 import React from "react";
+import useRedirectByAuthState from "@/hook/utils";
 
 
 const DeleteConnectionPage = ({params}: {params: { computerId: string, connectionId: string }}) => {
     const { data: connection, error: connectionError, isLoading: connectionIsLoading } = useGetConnection(params.connectionId);
     const {mutate: deleteConnection, isPending: deleteConnectionIsPending} = useDeleteConnection();
     const router = useRouter();
-
+    useRedirectByAuthState("/system/login", true);
 
     const handleDeleteConnection = (connection: Connection) => {
         deleteConnection([params.computerId, params.connectionId], {

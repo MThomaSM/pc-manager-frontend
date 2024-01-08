@@ -5,9 +5,12 @@ import {Device} from "@/interface/device";
 import {toast} from "react-toastify";
 import {toastErrors} from "@/utils";
 import {useRouter} from "next/navigation";
+import useRedirectByAuthState from "@/hook/utils";
 
 const DeviceDeletePage = ({params}: {params: { deviceId: string }}) => {
     const router = useRouter();
+    useRedirectByAuthState("/system/login", true);
+
     const { data: device, error: deviceError, isLoading: deviceIsLoading } = useGetDevice(params.deviceId);
     const { mutate:deleteDevice } = useDeleteDevice();
 

@@ -15,6 +15,7 @@ import {StartlistDetailed} from "@/interface/startlist";
 import {ImSpinner2} from "react-icons/im";
 import Link from "next/link";
 import Pagination from "@/components/Pagination";
+import useRedirectByAuthState from "@/hook/utils";
 
 interface ComputerState {
     [key: string]: {
@@ -26,6 +27,7 @@ interface ComputerState {
 const StartListPage = ({params}: {params: { deviceId: string }}) => {
 
     const router = useRouter();
+    useRedirectByAuthState("/system/login", true);
 
     const now = new Date().toISOString().slice(0, 16);
 
