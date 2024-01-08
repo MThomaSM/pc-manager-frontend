@@ -60,9 +60,9 @@ const Navbar = () => {
         <nav className="fixed w-full bg-gradient-to-r from-blue-500 to-blue-800 text-white z-10">
             <div className="md:hidden flex flex-col">
                 <div className="flex justify-between items-center p-3">
-                    <a href="#" className="font-bold text-2xl lg:text-4xl">
-                        PC MANAGER
-                    </a>
+                    <Link href="/" className="font-bold text-2xl lg:text-4xl">
+                        <span className={"font-bold"}>PCM</span><span className={"font-normal"}>ANAGER</span>
+                    </Link>
                     <button onClick={toggleMobileMenu} className="w-6 h-6 text-white focus:outline-none">
                         {
                             !isMobileMenuOpen
@@ -102,9 +102,9 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="hidden container mx-auto px-8 py-4 md:flex justify-between items-center bg-white text-black rounded-full my-4">
-                <a href="#" className="font-semibold text-2xl lg:text-4xl text-blue-800">
-                    PC REMOTE
-                </a>
+                <Link href="/" className="font-semibold text-2xl lg:text-4xl text-blue-800">
+                    <span className={"font-bold hover:font-normal"}>PCM</span><span className={"font-normal"}>ANAGER</span>
+                </Link>
                 <div className="flex gap-12">
                     <a onClick={updatePage.bind(this, "about")} className={`hover:text-blue-500 rounded-md hover:font-bold font-medium transition-all hover:cursor-pointer ${uiState.page === "about" && pathname === "/" ? "!text-blue-500 !font-bold" : ""}`}>About</a>
                     <a onClick={updatePage.bind(this, "features")} className={`hover:text-blue-500 rounded-md hover:font-bold font-medium transition-all hover:cursor-pointer ${uiState.page === "features" && pathname === "/" ? "!text-blue-500 !font-bold" : ""}`}>Features</a>
@@ -134,7 +134,7 @@ const Navbar = () => {
                                 Login
                             </Link>
                             <Link href="/system/register" className="border-[1px] border-blue-800 hover:bg-transparent hover:text-black bg-blue-800 text-white rounded-full px-3 py-2 text-sm font-normal hover:font-bold transition-all hover:cursor-pointer">
-                                Register
+                                Sign up
                             </Link>
                         </>
                     )}

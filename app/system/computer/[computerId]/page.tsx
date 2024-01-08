@@ -12,6 +12,7 @@ import {ImSpinner2} from "react-icons/im";
 import {useCreateOrUpdateComputer, useGetComputer} from "@/hook/computer";
 import {toast} from "react-toastify";
 import {toastErrors} from "@/utils";
+import Link from "next/link";
 
 const ComputerEditCreatePage = ({params}: {params: { computerId: string }}) => {
 
@@ -129,11 +130,7 @@ const ComputerEditCreatePage = ({params}: {params: { computerId: string }}) => {
                     </div>
                     <div>
                         <h2 className="font-semibold text-2xl uppercase">Configuration</h2>
-                        After creation, copy the UUID and download the program <a href="config.rar" target="_blank">HERE</a>, then configure it as follows:<br />
-                        <b> UUID - </b> Paste the copied UUID here <br />
-                        <b> Wifi Name - </b> Enter the name of the Wi-Fi network your computers are in <br />
-                        <b> Wifi Password - </b> Enter the password for the said Wi-Fi network here. <br />
-                        After clicking save, all data will be stored to your device within a minute and you can start using it.
+                        Setting up your computer for remote access is just a click away. Begin by selecting your device type from the dropdown menu. Then, provide a name for your computer to easily identify it in the future. Finally, enter the MAC Address of your computer—a unique identifier that ensures your remote commands reach the right machine. Once you&apos;ve filled in the details, hit &apos;CREATE&apos; to register your device and get started with remote management.
                     </div>
                 </div>
             </div>

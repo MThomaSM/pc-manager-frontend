@@ -189,7 +189,7 @@ const StartListPage = ({params}: {params: { deviceId: string }}) => {
                         <ErrorAndLoadingLess loading={computersIsLoading} error={computersError} height={"200px"}>
                             <h2 className="font-normal text-4xl pt-6">Detailed setup</h2>
 
-                            <table className="table-auto border-separate border-spacing-x-1 border-spacing-y-1.5 w-full rounded-lg">
+                            <table className="table-auto overscroll-x-auto border-separate border-spacing-x-1 border-spacing-y-1.5 w-full rounded-lg">
                                 <thead>
                                     <tr className="bg-blue-600 font-medium text-white rounded-lg hover:scale-x-[1.01] transition-all">
                                         <th className="border p-2 border-blue-400 rounded-lg"><input type="checkbox" checked={allChecked} onChange={handleCheckAll}/></th>
@@ -206,11 +206,11 @@ const StartListPage = ({params}: {params: { deviceId: string }}) => {
                                         <td className="rounded-lg">{computer.name}</td>
                                         <td className="rounded-lg font-mono">{computer.macAddress}</td>
                                         <td className="rounded-lg w-max"><input className="m-2 focus:outline-none bg-blue-400 rounded-lg py-1 px-2" key={computersState[computer.id]?.time || now}  type="datetime-local" value={computersState[computer.id]?.time || now} onChange={(e) => handleTimeChange(computer.id, e.target.value)} /></td>
-                                        <td className="rounded-lg">
+                                        <td className="rounded-lg w-[186px]">
                                             <div className="flex items-center justify-center text-white">
-                                                <Link href={`/system/computer/${computer.id}`} className="h-[52px] bg-blue-700 w-full rounded-l-lg flex items-center justify-center text-2xl hover:text-3xl transition-all"><BiEdit/></Link>
-                                                <Link href={`/system/computer/${computer.id}/delete`} className="h-[52px] bg-red-700 w-full flex items-center justify-center text-2xl hover:text-3xl transition-all"><BiTrash /></Link>
-                                                <button onClick={() => handleWakeComputer(computer)} className="h-[52px] bg-green-700 w-full rounded-r-lg flex items-center justify-center text-2xl hover:text-3xl transition-all">
+                                                <Link href={`/system/computer/${computer.id}`} className="h-[52px] w-[62px] bg-blue-700 rounded-l-lg flex items-center justify-center text-2xl hover:text-3xl transition-all"><BiEdit/></Link>
+                                                <Link href={`/system/computer/${computer.id}/delete`} className="h-[52px] w-[62px] bg-red-700 flex items-center justify-center text-2xl hover:text-3xl transition-all"><BiTrash /></Link>
+                                                <button onClick={() => handleWakeComputer(computer)} className="h-[52px] w-[62px] bg-green-700 rounded-r-lg flex items-center justify-center text-2xl hover:text-3xl transition-all">
                                                     {wakeComputerBulkIsPending && wakeComputerBulkVariables?.[1].some(item => item.computerId === computer.id) ?
                                                         <ImSpinner2 className={"animate-spin"} />
                                                         :

@@ -1,7 +1,7 @@
 import {useDispatch} from "react-redux";
 import {usePathname, useRouter} from "next/navigation";
 import {uiActions} from "@/store/ui-slice";
-import {FaFacebook, FaInstagram, FaXTwitter} from "react-icons/fa6";
+import {FaFacebook, FaGithub, FaInstagram, FaXTwitter} from "react-icons/fa6";
 
 const Footer = () => {
 
@@ -22,10 +22,10 @@ const Footer = () => {
       <footer className="static w-full bg-gradient-to-r from-blue-500 to-blue-800 text-white bottom-0 flex flex-col items-center justify-center py-12">
           <div className="flex flex-col items-center justify-center container gap-2 px-3 md:px-0">
               <a href="#" className="font-bold text-2xl lg:text-4xl">
-                  PCREMOTE
+                  <span className={"font-bold"}>PCM</span><span className={"font-normal"}>ANAGER</span>
               </a>
               <div className="text-gray-300 pt-2 space-x-4 font-light">
-                  <a onClick={updatePage.bind(this, "about")} className="text-lg hover:font-normal hover:text-gray-100 transition-all hover:cursor-pointer">About</a>
+              <a onClick={updatePage.bind(this, "about")} className="text-lg hover:font-normal hover:text-gray-100 transition-all hover:cursor-pointer">About</a>
                   <a onClick={updatePage.bind(this, "features")} className="text-lg hover:font-normal hover:text-gray-100 transition-all hover:cursor-pointer">Features</a>
                   <a onClick={updatePage.bind(this, "pricing")} className="text-lg hover:font-normal hover:text-gray-100 transition-all hover:cursor-pointer">Pricing</a>
                   <a onClick={updatePage.bind(this, "faq")} className="text-lg hover:font-normal hover:text-gray-100 transition-all hover:cursor-pointer">FAQ</a>
@@ -36,6 +36,7 @@ const Footer = () => {
                       <FaFacebook />
                       <FaInstagram />
                       <FaXTwitter />
+                      <FaGithub />
                   </div>
               </div>
           </div>
