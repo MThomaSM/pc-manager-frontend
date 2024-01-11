@@ -12,6 +12,8 @@ import ErrorAndLoadingLess from "@/components/ErrorAndLoadingLess";
 import Card from "@/components/Card";
 import {ImSpinner2} from "react-icons/im";
 import useRedirectByAuthState from "@/hook/utils";
+import {FaRegTrashAlt} from "react-icons/fa";
+import {useGetClientIp} from "@/hook/auth";
 
 
 const CreateEditConnectionPage = ({params}: {params: { connectionId: string, computerId: string }}) => {
@@ -21,6 +23,7 @@ const CreateEditConnectionPage = ({params}: {params: { connectionId: string, com
 
     const { data: connection, error: connectionError, isLoading: connectionIsLoading } = useGetConnection(params.connectionId, {enabled: mode === "UPDATE"});
     const { mutate, isPending } = useCreateOrUpdateConnection(params.computerId, params.connectionId);
+    const { data: clientIp } = useGetClientIp();
 
     const validationSchema = Yup.object({
         name: Yup.string().required("Required"),
@@ -28,6 +31,7 @@ const CreateEditConnectionPage = ({params}: {params: { connectionId: string, com
         remotePort: Yup.number().required('Required').min(1000, "Minimum 1000").max(9999, "Maximum 9999"),
         localPort: Yup.number().required('Required').min(20, "Minimum 20").max(65535, "Maximum 65535"),
         localIp: Yup.string().required('Required'),
+        ipWhitelist: Yup.array().of(Yup.string().matches(/^([0-9]{1,3}\.){3}[0-9]{1,3}$/, "Invalid IP Address")),
     })
 
     const formik = useFormik({
@@ -37,6 +41,7 @@ const CreateEditConnectionPage = ({params}: {params: { connectionId: string, com
             remotePort: connection?.remotePort ?? "",
             localPort: connection?.localPort ?? "",
             localIp: connection?.localIp ?? "localhost",
+            ipWhitelist: connection?.ipWhitelist?.includes(",") ? connection?.ipWhitelist?.split(",") : [], // [""] when need to add new empty field
         } as ConnectionFormValues,
         validationSchema: validationSchema,
         onSubmit: (values: ConnectionFormValues) => {
@@ -57,14 +62,29 @@ const CreateEditConnectionPage = ({params}: {params: { connectionId: string, com
         if (!connection)
             return;
 
+        let ipWhitelist: string[] = [];  // [""] when need to add new empty field
+        if(connection.ipWhitelist){
+            ipWhitelist = connection.ipWhitelist.includes(",") ? connection.ipWhitelist.split(",") : [connection.ipWhitelist];
+        }
+
         formik.setValues({
             name: connection.name,
             type: connection.type,
             remotePort: connection.remotePort,
             localPort: connection.localPort,
             localIp: connection.localIp,
+            ipWhitelist,
         } as ConnectionFormValues)
     }, [connection, formik.setValues])
+
+    const handleRemoveField = (index: number) => {
+        const updatedIpAddresses = formik.values.ipWhitelist?.filter((_, i) => i !== index);
+        formik.setFieldValue('ipWhitelist', updatedIpAddresses);
+    };
+
+    const handleAddField = () => {
+        formik.setFieldValue('ipWhitelist', [...formik.values.ipWhitelist!, '']);
+    };
 
     return (
         <>
@@ -110,7 +130,9 @@ const CreateEditConnectionPage = ({params}: {params: { connectionId: string, com
                                         ) : null}
                                     </div>
                                     <div className="flex flex-col space-y-1">
-                                        <label htmlFor="localPort" className="font-semibold inline-flex items-center justify-start gap-x-1">Local IP</label>
+                                        <label htmlFor="localPort"
+                                               className="font-semibold inline-flex items-center justify-start gap-x-1">Local
+                                            IP</label>
                                         <input
                                             type="text"
                                             id="localIp"
@@ -161,6 +183,42 @@ const CreateEditConnectionPage = ({params}: {params: { connectionId: string, com
                                         {formik.touched.remotePort && formik.errors.remotePort ? (
                                             <small className="text-red-500 text-sm">{formik.errors.remotePort}</small>
                                         ) : null}
+                                    </div>
+                                    <label htmlFor="ipWhitelist" className="font-semibold !-mb-2">IP Whitelist {clientIp ?
+                                        <small className={"text-gray-500 cursor-pointer"} onClick={() => {
+                                            navigator.clipboard.writeText(clientIp).then(() => {
+                                                toast.success(clientIp+" copied to clipboard!");
+                                            })
+                                        }}>Your IP: ({clientIp})</small> : null}</label>
+                                    <div className="flex flex-col space-y-1 bg-gray-300 py-3 px-4 rounded-lg">
+                                        {formik.values.ipWhitelist && formik.values.ipWhitelist.map((value, index) => (
+                                            <div className={"flex flex-col space-y-1"} key={index}>
+                                                <label className="font-semibold" htmlFor={`ipAddresses.${index}`}>IP
+                                                    Address {index + 1}</label>
+                                                <div className={"inline-flex justify-stretch items-stretch gap-1"}>
+                                                    <input
+                                                        id={`ipWhitelist.${index}`}
+                                                        name={`ipWhitelist.${index}`}
+                                                        type="text"
+                                                        onChange={formik.handleChange}
+                                                        value={formik.values.ipWhitelist![index] ?? ''}
+                                                        className={"border-2 border-blue-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 w-full"}
+                                                    />
+                                                    <button type="button"
+                                                            className={"py-1 px-2 bg-red-400 hover:bg-red-600 transition-colors w-fit float-right rounded-md text-white"}
+                                                            onClick={() => handleRemoveField(index)}><FaRegTrashAlt/>
+                                                    </button>
+                                                </div>
+                                                {formik.touched.ipWhitelist && formik.errors.ipWhitelist ? (
+                                                    <small
+                                                        className="text-red-500 text-sm">{formik.errors.ipWhitelist[index]}</small>
+                                                ) : null}
+                                            </div>
+                                        ))}
+                                        <button type="button"
+                                                className={`inline-flex !mt-2 items-center justify-center bg-gradient-to-r from-green-600 to-green-800 py-1 w-full text-lg font-semibold text-white hover:font-bold rounded-lg`}
+                                                onClick={handleAddField}>Add IP Address
+                                        </button>
                                     </div>
                                     <button disabled={isPending} type={"submit"}
                                             className={`h-16 inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-800 p-4 w-full text-xl font-semibold text-white hover:font-bold rounded-lg ${isPending ? "animate-pulse" : ""}`}>{isPending ?

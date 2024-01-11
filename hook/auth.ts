@@ -54,6 +54,20 @@ export const useGetUserByPasswordResetToken = (token: string, options?: UseMutat
     });
 }
 
+export const useGetClientIp = (options?: UseMutationOptions<string, AxiosError<ErrorResponse>>) => {
+    const queryFn = () => {
+        return axiosClient.get<SuccessResponse<string>>('/getIp')
+            .then(response => response.data.data);
+    }
+
+    return useQuery({
+        queryKey: [QUERY_KEY, "getIp"],
+        queryFn,
+        ...options
+    });
+
+}
+
 export const useUpdateUserPassword = (options?: UseMutationOptions<User, AxiosError<ErrorResponse>, [string, PasswordResetFormValues]>) => {
     const mutationFn = ([token, values]: [string, PasswordResetFormValues]): Promise<User> => {
         return axiosClient.patch<SuccessResponse<User>>(`/users/password-reset/${token}`, values)

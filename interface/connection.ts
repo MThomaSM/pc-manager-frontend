@@ -9,6 +9,7 @@ export interface Connection {
     localPort: number;
     computerId: string;
     localIp: string;
+    ipWhitelist?: string;
     // computerName: string;
     // macAddress: string;
 }
@@ -19,6 +20,7 @@ export interface ConnectionFormValues {
     remotePort: number;
     localPort: number;
     localIp: string;
+    ipWhitelist?: string[];
 }
 
 export type ConnectionType = keyof typeof ConnectionTypeEnum;
