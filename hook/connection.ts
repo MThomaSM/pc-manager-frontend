@@ -71,7 +71,7 @@ export const useDownloadConnection = (options?: UseMutationOptions<void, AxiosEr
         return axiosClient.get(`/computers/${computerId}/download?type=${type}`, {
             responseType: 'blob'
         }).then(response => {
-            fileDownload(response.data, type === "config" ? "config.ini" : "client.zip");
+            fileDownload(response.data, type === "config" ? "config.toml" : "client.zip");
         });
     };
 
