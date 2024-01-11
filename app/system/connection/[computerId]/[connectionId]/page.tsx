@@ -31,7 +31,7 @@ const CreateEditConnectionPage = ({params}: {params: { connectionId: string, com
         remotePort: Yup.number().required('Required').min(1000, "Minimum 1000").max(9999, "Maximum 9999"),
         localPort: Yup.number().required('Required').min(20, "Minimum 20").max(65535, "Maximum 65535"),
         localIp: Yup.string().required('Required'),
-        ipWhitelist: Yup.array().of(Yup.string().matches(/^([0-9]{1,3}\.){3}[0-9]{1,3}$/, "Invalid IP Address")),
+        ipWhitelist: Yup.array().of(Yup.string().required('Required').matches(/^([0-9]{1,3}\.){3}[0-9]{1,3}$/, "Invalid IP Address")),
     })
 
     const formik = useFormik({
