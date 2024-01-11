@@ -189,7 +189,7 @@ const CreateEditConnectionPage = ({params}: {params: { connectionId: string, com
                                             navigator.clipboard.writeText(clientIp).then(() => {
                                                 toast.success(clientIp+" copied to clipboard!");
                                             })
-                                        }}>Your IP: ({clientIp})</small> : null}</label>
+                                        }}>Your IP: {clientIp}</small> : null}</label>
                                     <div className="flex flex-col space-y-1 bg-gray-300 py-3 px-4 rounded-lg">
                                         {formik.values.ipWhitelist && formik.values.ipWhitelist.map((value, index) => (
                                             <div className={"flex flex-col space-y-1"} key={index}>
