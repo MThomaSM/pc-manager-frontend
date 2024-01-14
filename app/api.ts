@@ -9,7 +9,9 @@ axiosClient.interceptors.request.use(function (config) {
     const token = store.getState().auth.jwt.token;
     config.headers.Authorization = token ? `Bearer ${token}` : '';
 
-    config.url += (config.url!.includes('?') ? '&' : '?') + 'XDEBUG_SESSION_START=PHPSTORM';
+    if (process.env.NODE_ENV === 'development') {
+        config.url += (config.url!.includes('?') ? '&' : '?') + 'XDEBUG_SESSION_START=PHPSTORM';
+    }
 
     return config;
 });

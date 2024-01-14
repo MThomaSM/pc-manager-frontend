@@ -9,7 +9,7 @@ const QUERY_KEY = 'startlist';
 
 export const useWakeComputer = (options?: UseMutationOptions<Startlist, AxiosError<ErrorResponse>, Computer>) => {
     const mutationFn = (values: Computer): Promise<Startlist> => {
-        return axiosClient.post<SuccessResponse<Startlist>>(`/startlist/${values.deviceId}/wake/${values.id}?XDEBUG_SESSION_START=PHPSTORM`, values)
+        return axiosClient.post<SuccessResponse<Startlist>>(`/startlist/${values.deviceId}/wake/${values.id}`, values)
             .then(response => response.data.data);
     };
 
@@ -21,7 +21,7 @@ export const useWakeComputer = (options?: UseMutationOptions<Startlist, AxiosErr
 
 export const useWakeComputerBulk = (options?: UseMutationOptions<Startlist, AxiosError<ErrorResponse>, [string,ComputerWakeBulkItem[]]>) => {
     const mutationFn = ([deviceId,values]: [string, ComputerWakeBulkItem[]]): Promise<Startlist> => {
-        return axiosClient.post<SuccessResponse<Startlist>>(`/startlist/${deviceId}/bulk?XDEBUG_SESSION_START=PHPSTORM`, values)
+        return axiosClient.post<SuccessResponse<Startlist>>(`/startlist/${deviceId}/bulk`, values)
             .then(response => response.data.data);
     };
 

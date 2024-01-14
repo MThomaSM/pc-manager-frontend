@@ -63,10 +63,10 @@ export const useDeleteComputer = (options?: UseMutationOptions<null, AxiosError<
 export const useCreateOrUpdateComputer = (options?: UseMutationOptions<Computer, AxiosError<ErrorResponse>, [Mode, ComputerFormValues]>) => {
     const mutationFn = ([mode, values]: [Mode, ComputerFormValues]): Promise<Computer> => {
         if (mode === "CREATE") {
-            return axiosClient.post<SuccessResponse<Computer>>('/computers?XDEBUG_SESSION_START=PHPSTORM', values)
+            return axiosClient.post<SuccessResponse<Computer>>('/computers', values)
                 .then(response => response.data.data);
         } else if (mode === "UPDATE") {
-            return axiosClient.patch<SuccessResponse<Computer>>(`/computers/${values.id}?XDEBUG_SESSION_START=PHPSTORM`, values)
+            return axiosClient.patch<SuccessResponse<Computer>>(`/computers/${values.id}`, values)
                 .then(response => response.data.data);
         } else {
             throw new Error("Invalid mode");

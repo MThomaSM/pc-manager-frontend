@@ -10,10 +10,10 @@ const QUERY_KEY = 'connections';
 export const useCreateOrUpdateConnection = (computerId: string, connectionId: string, options?: UseMutationOptions<Connection, AxiosError<ErrorResponse>, [ConnectionFormValues, Mode]>) => {
     const mutationFn = ([values, mode]: [ConnectionFormValues, Mode]): Promise<Connection> => {
         if (mode === "CREATE") {
-            return axiosClient.post<SuccessResponse<Connection>>(`/connections/${computerId}?XDEBUG_SESSION_START=PHPSTORM`, values)
+            return axiosClient.post<SuccessResponse<Connection>>(`/connections/${computerId}`, values)
                 .then(response => response.data.data);
         } else if (mode === "UPDATE") {
-            return axiosClient.patch<SuccessResponse<Connection>>(`/connections/${computerId}/${connectionId}?XDEBUG_SESSION_START=PHPSTORM`, values)
+            return axiosClient.patch<SuccessResponse<Connection>>(`/connections/${computerId}/${connectionId}`, values)
                 .then(response => response.data.data);
         } else {
             throw new Error("Invalid mode");

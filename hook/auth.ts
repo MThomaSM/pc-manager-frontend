@@ -15,7 +15,7 @@ const QUERY_KEY = 'users';
 
 export const useCreateUser = (options?: UseMutationOptions<AuthUser, AxiosError<ErrorResponse>, SignupFormValues>) => {
     const mutationFn = (values: SignupFormValues): Promise<AuthUser> => {
-        return axiosClient.post<SuccessResponse<AuthUser>>('/signup?XDEBUG_SESSION_START=PHPSTORM', values)
+        return axiosClient.post<SuccessResponse<AuthUser>>('/signup', values)
             .then(response => {
                 return response.data.data;
             });
@@ -29,7 +29,7 @@ export const useCreateUser = (options?: UseMutationOptions<AuthUser, AxiosError<
 
 export const useLoginUser = (options?: UseMutationOptions<AuthUser, AxiosError<ErrorResponse>, LoginFormValues>) => {
     const mutationFn = (values: LoginFormValues): Promise<AuthUser> => {
-        return axiosClient.post<SuccessResponse<AuthUser>>('/auth?XDEBUG_SESSION_START=PHPSTORM', values)
+        return axiosClient.post<SuccessResponse<AuthUser>>('/auth', values)
             .then(response => {
                 return response.data.data;
             });
@@ -98,7 +98,7 @@ export const useRequestPasswordReset = (options?: UseMutationOptions<boolean, Ax
 
 export const useUpdateUser = (options?: UseMutationOptions<AuthUser, AxiosError<ErrorResponse>, UpdateUserFormValues>) => {
     const mutationFn = (values: UpdateUserFormValues): Promise<AuthUser> => {
-        return axiosClient.patch<SuccessResponse<AuthUser>>('/users?XDEBUG_SESSION_START=PHPSTORM', values)
+        return axiosClient.patch<SuccessResponse<AuthUser>>('/users', values)
             .then(response => {
                 return response.data.data;
             });

@@ -50,7 +50,7 @@ export const useDeleteDevice = (options?: UseMutationOptions<null, AxiosError<Er
 
 export const useCreateDevice = (options?: UseMutationOptions<Device, AxiosError<ErrorResponse>, DeviceFormValues>) => {
     const mutationFn = (values: DeviceFormValues): Promise<Device> => {
-        return axiosClient.post<SuccessResponse<Device>>('/devices?XDEBUG_SESSION_START=PHPSTORM', values)
+        return axiosClient.post<SuccessResponse<Device>>('/devices', values)
             .then(response => {
                 return response.data.data;
             });
@@ -66,7 +66,7 @@ export const useCreateDevice = (options?: UseMutationOptions<Device, AxiosError<
 
 export const useUpdateDevice = (options?: UseMutationOptions<Device, AxiosError<ErrorResponse>, DeviceFormValues>) => {
     const mutationFn = (values: DeviceFormValues): Promise<Device> => {
-        return axiosClient.patch<SuccessResponse<Device>>('/devices?XDEBUG_SESSION_START=PHPSTORM', values)
+        return axiosClient.patch<SuccessResponse<Device>>('/devices', values)
             .then(response => {
                 return response.data.data;
             });
@@ -81,10 +81,10 @@ export const useUpdateDevice = (options?: UseMutationOptions<Device, AxiosError<
 export const useCreateOrUpdateDevice = (options?: UseMutationOptions<Device, AxiosError<ErrorResponse>, [Mode, DeviceFormValues]>) => {
     const mutationFn = ([mode, values]: [Mode, DeviceFormValues]): Promise<Device> => {
         if (mode === "CREATE") {
-            return axiosClient.post<SuccessResponse<Device>>('/devices?XDEBUG_SESSION_START=PHPSTORM', values)
+            return axiosClient.post<SuccessResponse<Device>>('/devices', values)
                 .then(response => response.data.data);
         } else if (mode === "UPDATE") {
-            return axiosClient.patch<SuccessResponse<Device>>(`/devices/${values.id}?XDEBUG_SESSION_START=PHPSTORM`, values)
+            return axiosClient.patch<SuccessResponse<Device>>(`/devices/${values.id}`, values)
                 .then(response => response.data.data);
         } else {
             throw new Error("Invalid mode");
