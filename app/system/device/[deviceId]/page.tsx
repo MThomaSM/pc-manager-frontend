@@ -14,6 +14,7 @@ import {v4 as uuidv4} from 'uuid';
 import ErrorAndLoadingLess from "@/components/ErrorAndLoadingLess";
 import Link from "next/link";
 import useRedirectByAuthState from "@/hook/utils";
+import SimpleInput from "@/components/Form/SimpleInput";
 
 const DeviceEditCreatePage = ({params}: {params: { deviceId: string }}) => {
 
@@ -71,35 +72,30 @@ const DeviceEditCreatePage = ({params}: {params: { deviceId: string }}) => {
                             <Card title={mode + " Device"}>
                                 <form className="flex flex-col space-y-3" onSubmit={formik.handleSubmit}>
                                     <div className="flex flex-col space-y-1">
-                                        <label htmlFor="firstName" className="font-semibold">Name of your ESP32</label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
+                                        <SimpleInput
+                                            id={"name"}
+                                            label={"Name of your ESP32 device"}
+                                            type={"text"}
+                                            handleChange={formik.handleChange}
+                                            handleBlur={formik.handleBlur}
                                             value={formik.values.name}
-                                            className={"border-2 border-blue-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500"}
+                                            readOnly={false}
+                                            error={formik.errors.name}
+                                            touched={formik.touched.name}
                                         />
-                                        {formik.touched.name && formik.errors.name ? (
-                                            <small className="text-red-500 text-sm">{formik.errors.name}</small>
-                                        ) : null}
                                     </div>
                                     <div className="flex flex-col space-y-1">
-                                        <label htmlFor="lastName" className="font-semibold">UUID of your ESP32</label>
-                                        <input
-                                            type="text"
-                                            id="id"
-                                            name="id"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
+                                        <SimpleInput
+                                            id={"id"}
+                                            label={"UUID of your ESP32 device"}
+                                            type={"text"}
+                                            handleChange={formik.handleChange}
+                                            handleBlur={formik.handleBlur}
                                             value={formik.values.id}
-                                            className={"border-2 border-blue-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500 bg-gray-100"}
-                                            readOnly={true}
+                                            readOnly={mode === "UPDATE"}
+                                            error={formik.errors.id}
+                                            touched={formik.touched.id}
                                         />
-                                        {formik.touched.id && formik.errors.id ? (
-                                            <small className="text-red-500 text-sm">{formik.errors.id}</small>
-                                        ) : null}
                                     </div>
                                     <button disabled={isPending} type={"submit"}
                                             className={`h-16 inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-800 p-4 w-full text-xl font-semibold text-white hover:font-bold rounded-lg ${isPending ? "animate-pulse" : ""}`}>{isPending ?

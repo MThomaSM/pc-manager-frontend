@@ -12,8 +12,8 @@ import {ImSpinner2} from "react-icons/im";
 import {useCreateOrUpdateComputer, useGetComputer} from "@/hook/computer";
 import {toast} from "react-toastify";
 import {toastErrors} from "@/utils";
-import Link from "next/link";
 import useRedirectByAuthState from "@/hook/utils";
+import SimpleInput from "@/components/Form/SimpleInput";
 
 const ComputerEditCreatePage = ({params}: {params: { computerId: string }}) => {
 
@@ -96,34 +96,30 @@ const ComputerEditCreatePage = ({params}: {params: { computerId: string }}) => {
                                         </div>
                                     </ErrorAndLoadingLess>
                                     <div className="flex flex-col space-y-1">
-                                        <label htmlFor="name" className="font-semibold">Name of your computer</label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
+                                        <SimpleInput
+                                            id={"name"}
+                                            label={"Name"}
+                                            type={"text"}
+                                            handleChange={formik.handleChange}
+                                            handleBlur={formik.handleBlur}
                                             value={formik.values.name}
-                                            className={"border-2 border-blue-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500"}
+                                            readOnly={false}
+                                            error={formik.errors.name}
+                                            touched={formik.touched.name}
                                         />
-                                        {formik.touched.name && formik.errors.name ? (
-                                            <small className="text-red-500 text-sm">{formik.errors.name}</small>
-                                        ) : null}
                                     </div>
                                     <div className="flex flex-col space-y-1">
-                                        <label htmlFor="macAddress" className="font-semibold">MAC Address of your computer</label>
-                                        <input
-                                            type="text"
-                                            id="macAddress"
-                                            name="macAddress"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
+                                        <SimpleInput
+                                            id={"macAddress"}
+                                            label={"MAC Address"}
+                                            type={"text"}
+                                            handleChange={formik.handleChange}
+                                            handleBlur={formik.handleBlur}
                                             value={formik.values.macAddress}
-                                            className={"border-2 border-blue-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500"}
+                                            readOnly={false}
+                                            error={formik.errors.macAddress}
+                                            touched={formik.touched.macAddress}
                                         />
-                                        {formik.touched.macAddress && formik.errors.macAddress ? (
-                                            <small className="text-red-500 text-sm">{formik.errors.macAddress}</small>
-                                        ) : null}
                                     </div>
                                     <button disabled={isPending} type={"submit"} className={`h-16 inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-800 p-4 w-full text-xl font-semibold text-white hover:font-bold rounded-lg ${isPending ? "animate-pulse" : ""}`}>{isPending ? <ImSpinner2 className={"animate-spin"} /> : mode }</button>
                                 </form>

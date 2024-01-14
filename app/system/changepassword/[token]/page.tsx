@@ -9,6 +9,7 @@ import {toastErrors} from "@/utils";
 import {ImSpinner2} from "react-icons/im";
 import React, {useEffect} from "react";
 import useRedirectByAuthState from "@/hook/utils";
+import NiceInput from "@/components/Form/NiceInput";
 
 const ChangePasswordPage = ({params}: {params: { token: string }}) => {
     const router = useRouter();
@@ -55,34 +56,28 @@ const ChangePasswordPage = ({params}: {params: { token: string }}) => {
                 <h1 className={"text-4xl border-b-2 w-full text-center py-4 font-semibold border-y-blue-900 bg-blue-900 text-white"}>Update password</h1>
                 <form onSubmit={formik.handleSubmit} className="flex flex-col space-y-3 w-full pt-2 p-4">
                     <div className="flex flex-col space-y-1">
-                        <label htmlFor="password" className="font-semibold">Password</label>
-                        <input
-                            type="password"
+                        <NiceInput
                             id="password"
-                            name="password"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
+                            label="Password"
+                            type="password"
+                            handleChange={formik.handleChange}
+                            handleBlur={formik.handleBlur}
                             value={formik.values.password}
-                            className={"bg-blue-50 border-2 text-black border-blue-200 focus:scale-x-[1.025] transition-all rounded-md px-2 py-1 focus:outline-none focus:border-blue-900"}
+                            error={formik.errors.password}
+                            touched={formik.touched.password}
                         />
-                        {formik.touched.password && formik.errors.password ? (
-                            <small className="text-red-600">{formik.errors.password}</small>
-                        ) : null}
                     </div>
                     <div className="flex flex-col space-y-1 pb-2">
-                        <label htmlFor="passwordConfirm" className="font-semibold">Repeat Password</label>
-                        <input
-                            type="password"
+                        <NiceInput
                             id="passwordConfirm"
-                            name="passwordConfirm"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
+                            label="Password confirmation"
+                            type="password"
+                            handleChange={formik.handleChange}
+                            handleBlur={formik.handleBlur}
                             value={formik.values.passwordConfirm}
-                            className={"bg-blue-50 border-2 text-black border-blue-200 focus:scale-x-[1.025] transition-all rounded-md px-2 py-1 focus:outline-none focus:border-blue-900"}
+                            error={formik.errors.passwordConfirm}
+                            touched={formik.touched.passwordConfirm}
                         />
-                        {formik.touched.passwordConfirm && formik.errors.passwordConfirm ? (
-                            <small className="text-red-600">{formik.errors.passwordConfirm}</small>
-                        ) : null}
                     </div>
                     <button disabled={isPending} type={"submit"} className={`h-16 inline-flex items-center justify-center bg-blue-400 border-2 border-blue-200 hover:border-transparent hover:bg-blue-900 p-4 w-full text-xl hover:scale-x-[1.025] transition-all font-semibold text-white hover:font-bold rounded-lg uppercase ${isPending ? "animate-pulse": ""}`}>{isPending ? <ImSpinner2 className={"animate-spin"} /> : "Update profile" }</button>
                 </form>

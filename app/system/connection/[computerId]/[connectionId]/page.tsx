@@ -14,6 +14,7 @@ import {ImSpinner2} from "react-icons/im";
 import useRedirectByAuthState from "@/hook/utils";
 import {FaRegTrashAlt} from "react-icons/fa";
 import {useGetClientIp} from "@/hook/auth";
+import SimpleInput from "@/components/Form/SimpleInput";
 
 
 const CreateEditConnectionPage = ({params}: {params: { connectionId: string, computerId: string }}) => {
@@ -96,19 +97,17 @@ const CreateEditConnectionPage = ({params}: {params: { connectionId: string, com
                             <Card title={mode+" Connection"}>
                                 <form className="flex flex-col space-y-3" onSubmit={formik.handleSubmit}>
                                     <div className="flex flex-col space-y-1">
-                                        <label htmlFor="name" className="font-semibold">Name</label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
+                                        <SimpleInput
+                                            id={"name"}
+                                            label={"Name of your connection"}
+                                            type={"text"}
+                                            handleChange={formik.handleChange}
+                                            handleBlur={formik.handleBlur}
                                             value={formik.values.name}
-                                            className={"border-2 border-blue-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500"}
+                                            readOnly={false}
+                                            error={formik.errors.name}
+                                            touched={formik.touched.name}
                                         />
-                                        {formik.touched.name && formik.errors.name ? (
-                                            <small className="text-red-500 text-sm">{formik.errors.name}</small>
-                                        ) : null}
                                     </div>
                                     <div className="flex flex-col space-y-1">
                                         <label htmlFor="type" className="font-semibold">Type</label>
@@ -130,21 +129,17 @@ const CreateEditConnectionPage = ({params}: {params: { connectionId: string, com
                                         ) : null}
                                     </div>
                                     <div className="flex flex-col space-y-1">
-                                        <label htmlFor="localPort"
-                                               className="font-semibold inline-flex items-center justify-start gap-x-1">Local
-                                            IP</label>
-                                        <input
-                                            type="text"
-                                            id="localIp"
-                                            name="localIp"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
+                                        <SimpleInput
+                                            id={"localIp"}
+                                            label={"Local IP"}
+                                            type={"text"}
+                                            handleChange={formik.handleChange}
+                                            handleBlur={formik.handleBlur}
                                             value={formik.values.localIp}
-                                            className={"border-2 border-blue-200 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500"}
+                                            readOnly={false}
+                                            error={formik.errors.localIp}
+                                            touched={formik.touched.localIp}
                                         />
-                                        {formik.touched.localIp && formik.errors.localIp ? (
-                                            <small className="text-red-500 text-sm">{formik.errors.localIp}</small>
-                                        ) : null}
                                     </div>
                                     <div className="flex flex-col space-y-1">
                                         <label htmlFor="localPort" className="font-semibold">Local port</label>
