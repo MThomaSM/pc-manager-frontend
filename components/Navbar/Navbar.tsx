@@ -9,6 +9,7 @@ import {toast} from "react-toastify";
 import {usePathname, useRouter} from "next/navigation";
 import {User} from "@/interface/auth";
 import {uiActions} from "@/store/ui-slice";
+import {useUser} from "@/hook/auth";
 
 
 const Navbar = () => {
@@ -18,10 +19,9 @@ const Navbar = () => {
 
     const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
-    const userState = useSelector((state: RootState) => state.auth);
     const uiState = useSelector((state: RootState) => state.ui);
 
-    const [loggedInUser, setLoggedInUser] = useState<User>();
+    const { user: loggedInUser, logoutHandler: logout } = useUser();
 
     const updatePage = (page: string) => {
         if(pathname !== "/"){
@@ -32,29 +32,9 @@ const Navbar = () => {
         }));
     }
 
-    useEffect(() => {
-        if (!userState.user) return;
-
-        if(userState.jwt.expiresAt*1000 < Date.now()) {
-            dispatch(authActions.logoutUser());
-            toast.info("Your session has expired, please log in again", {toastId: "session-expired"});
-            router.push("/system/login");
-            return;
-        }
-
-        setLoggedInUser(userState.user);
-    }, [dispatch, router, userState.jwt.expiresAt, userState.user]);
-
     const toggleMobileMenu = () => {
         setMobileMenuOpen(!isMobileMenuOpen);
     };
-
-    const logout = () => {
-        dispatch(authActions.logoutUser());
-        setLoggedInUser(undefined);
-        toast.info("Logged out successfully");
-        router.push("/");
-    }
 
     return (
         <nav className="fixed w-full bg-gradient-to-r from-blue-500 to-blue-800 text-white z-10">

@@ -10,6 +10,12 @@ import {useMutation, UseMutationOptions, useQuery} from "@tanstack/react-query";
 import {AxiosError} from "axios";
 import {ErrorResponse, SuccessResponse} from "@/interface/response";
 import axiosClient from "@/app/api";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "@/store";
+import {useEffect, useState} from "react";
+import {authActions} from "@/store/auth-slice";
+import {toast} from "react-toastify";
+import {useRouter} from "next/navigation";
 
 const QUERY_KEY = 'users';
 
@@ -108,4 +114,37 @@ export const useUpdateUser = (options?: UseMutationOptions<AuthUser, AxiosError<
         mutationFn,
         ...options,
     });
+}
+
+export const useUser = (): {
+    user: User | undefined,
+    logoutHandler: () => void
+} => {
+    const dispatch = useDispatch();
+    const router = useRouter();
+
+    const userState = useSelector((state: RootState) => state.auth);
+    const [loggedInUser, setLoggedInUser] = useState<User | undefined>(undefined);
+
+    useEffect(() => {
+        if (!userState.user) return;
+
+        if(userState.jwt.expiresAt*1000 < Date.now()) {
+            dispatch(authActions.logoutUser());
+            toast.info("Your session has expired, please log in again", {toastId: "session-expired"});
+            router.push("/system/login");
+            return;
+        }
+
+        setLoggedInUser(userState.user);
+    }, [dispatch, router, userState.jwt.expiresAt, userState.user]);
+
+    const logout = () => {
+        dispatch(authActions.logoutUser());
+        setLoggedInUser(undefined);
+        toast.info("Logged out successfully");
+        router.push("/");
+    }
+
+    return {user: loggedInUser, logoutHandler: logout}
 }
