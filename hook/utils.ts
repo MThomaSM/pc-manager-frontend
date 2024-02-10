@@ -34,7 +34,8 @@ export function useRecaptchaToken(action: string): {
         });
     }, [action, executeRecaptcha]);
 
-    verifyRecaptcha();
+    if(!token)
+        verifyRecaptcha();
     
     return { token, verifyRecaptcha };
 }
