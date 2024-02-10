@@ -30,8 +30,6 @@ const LostPasswordPage = () => {
         validationSchema: validationSchema,
         onSubmit: async (values: RequestPasswordResetFormValues) => {
             await verifyRecaptcha();
-            if(!token) return;
-
             mutate({...values, recaptchaToken: token}, {
                 onSuccess: (data) => {
                     toast.success("Password reset email was sent successfully.");
