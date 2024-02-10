@@ -11,12 +11,10 @@ import {ImSpinner2} from "react-icons/im";
 import useRedirectByAuthState, {useRecaptchaToken} from "@/hook/utils";
 import NiceInput from "@/components/Form/NiceInput";
 
-const LostPasswordPage = () => {
+const LostPasswordPage = async() => {
 
     const { mutate, isPending } = useRequestPasswordReset();
     const {token, verifyRecaptcha} = useRecaptchaToken("lostpassword");
-    verifyRecaptcha();
-
 
     useRedirectByAuthState("/system", false);
 
