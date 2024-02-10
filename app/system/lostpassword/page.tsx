@@ -14,7 +14,7 @@ import NiceInput from "@/components/Form/NiceInput";
 const LostPasswordPage = () => {
 
     const { mutate, isPending } = useRequestPasswordReset();
-    const recaptchaToken = useRecaptchaToken("lostpassword");
+    const recaptchaToken = useRecaptchaToken("lostpassword", mutate);
 
     useRedirectByAuthState("/system", false);
 

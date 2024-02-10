@@ -16,7 +16,7 @@ const useRedirectByAuthState = (href: string, forLoggedIn: boolean) => {
     }, [forLoggedIn, router, userState.user, href]);
 }
 
-export function useRecaptchaToken(action: string) {
+export function useRecaptchaToken(action: string, mutate: {}): string | undefined {
     const { executeRecaptcha } = useGoogleReCaptcha();
     const [token, setToken] = useState<string>();
 
@@ -29,7 +29,7 @@ export function useRecaptchaToken(action: string) {
             console.error('reCAPTCHA error', e);
             toast.error('reCAPTCHA error');
         });
-    }, [action, executeRecaptcha]);
+    }, [action, executeRecaptcha, mutate]);
 
     return token;
 }
