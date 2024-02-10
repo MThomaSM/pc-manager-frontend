@@ -14,7 +14,7 @@ import NiceInput from "@/components/Form/NiceInput";
 const LostPasswordPage = () => {
 
     const { mutate, isPending } = useRequestPasswordReset();
-    const recaptchaToken = useRecaptchaToken("lostpassword");
+    const {token, verifyRecaptcha} = useRecaptchaToken("lostpassword");
 
     useRedirectByAuthState("/system", false);
 
@@ -28,8 +28,9 @@ const LostPasswordPage = () => {
             feUrl: typeof window !== 'undefined' ? window.location.origin : "",
         } as RequestPasswordResetFormValues,
         validationSchema: validationSchema,
-        onSubmit: (values: RequestPasswordResetFormValues) => {
-            mutate({...values, recaptchaToken}, {
+        onSubmit: async (values: RequestPasswordResetFormValues) => {
+            await verifyRecaptcha();
+            mutate({...values, recaptchaToken: token}, {
                 onSuccess: (data) => {
                     toast.success("Password reset email was sent successfully.");
                     formik.resetForm();

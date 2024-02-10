@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import {useRouter} from "next/navigation";
@@ -16,11 +16,14 @@ const useRedirectByAuthState = (href: string, forLoggedIn: boolean) => {
     }, [forLoggedIn, router, userState.user, href]);
 }
 
-export function useRecaptchaToken(action: string) {
+export function useRecaptchaToken(action: string): {
+    verifyRecaptcha: () => void;
+    token: string | undefined
+} {
     const { executeRecaptcha } = useGoogleReCaptcha();
     const [token, setToken] = useState<string>();
 
-    useEffect(() => {
+    const verifyRecaptcha = useCallback(() => {
         if (!executeRecaptcha) {
             console.log('Execute reCAPTCHA not yet available');
             return;
@@ -31,7 +34,8 @@ export function useRecaptchaToken(action: string) {
         });
     }, [action, executeRecaptcha]);
 
-    return token;
+
+    return { token, verifyRecaptcha };
 }
 
 export default useRedirectByAuthState;
