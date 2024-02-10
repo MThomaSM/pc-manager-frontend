@@ -15,6 +15,8 @@ const LostPasswordPage = () => {
 
     const { mutate, isPending } = useRequestPasswordReset();
     const {token, verifyRecaptcha} = useRecaptchaToken("lostpassword");
+    verifyRecaptcha();
+
 
     useRedirectByAuthState("/system", false);
 

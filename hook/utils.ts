@@ -33,9 +33,6 @@ export function useRecaptchaToken(action: string): {
             toast.error('reCAPTCHA error');
         });
     }, [action, executeRecaptcha]);
-
-    if(!token)
-        verifyRecaptcha();
     
     return { token, verifyRecaptcha };
 }
