@@ -8,12 +8,14 @@ import {RequestPasswordResetFormValues} from "@/interface/auth";
 import {toast} from "react-toastify";
 import {toastErrors} from "@/utils";
 import {ImSpinner2} from "react-icons/im";
-import useRedirectByAuthState from "@/hook/utils";
+import useRedirectByAuthState, {useRecaptchaToken} from "@/hook/utils";
 import NiceInput from "@/components/Form/NiceInput";
 
 const LostPasswordPage = () => {
 
     const { mutate, isPending } = useRequestPasswordReset();
+    const recaptchaToken = useRecaptchaToken("lostpassword");
+
     useRedirectByAuthState("/system", false);
 
     const validationSchema = Yup.object({
@@ -27,7 +29,7 @@ const LostPasswordPage = () => {
         } as RequestPasswordResetFormValues,
         validationSchema: validationSchema,
         onSubmit: (values: RequestPasswordResetFormValues) => {
-            mutate(values, {
+            mutate({...values, recaptchaToken}, {
                 onSuccess: (data) => {
                     toast.success("Password reset email was sent successfully.");
                     formik.resetForm();

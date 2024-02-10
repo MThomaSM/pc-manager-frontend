@@ -47,6 +47,7 @@ export interface PasswordResetFormValues {
 export interface RequestPasswordResetFormValues {
     email: string;
     feUrl: string;
+    recaptchaToken?: string;
 }
 
 export interface LoginFormValues {

@@ -10,6 +10,7 @@ import store from "@/store";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
+import {GoogleReCaptchaProvider} from "react-google-recaptcha-v3";
 
 export default function RootLayout({
   children,
@@ -30,19 +31,21 @@ export default function RootLayout({
     <>
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
-            <html lang="en">
-              <body className={"relative bg-gray-50"}>
-                <Navbar/>
-                <ToastContainer
-                  position={"bottom-right"}
-                  limit={8}
-                  autoClose={3000}
-                />
-                <main className="md:pt-24 min-h-[calc(100vh-226px)]">{children}</main>
-                <Footer/>
-                <ReactQueryDevtools initialIsOpen={false}/>
-              </body>
-            </html>
+            <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}>
+              <html lang="en">
+                <body className={"relative bg-gray-50"}>
+                  <Navbar/>
+                  <ToastContainer
+                    position={"bottom-right"}
+                    limit={8}
+                    autoClose={3000}
+                  />
+                  <main className="md:pt-24 min-h-[calc(100vh-226px)]">{children}</main>
+                  <Footer/>
+                  <ReactQueryDevtools initialIsOpen={false}/>
+                </body>
+              </html>
+            </GoogleReCaptchaProvider>
           </Provider>
         </QueryClientProvider>
     </>
